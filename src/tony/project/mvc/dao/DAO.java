@@ -84,7 +84,9 @@ public class DAO<T> {
 
 		try {
 			connection = JdbcUtils.getConnetion();
-			return queryRunner.query(connection, sql, new BeanListHandler<>(clazz), args);
+			List<T> list =  queryRunner.query(connection, sql, new BeanListHandler<>(clazz), args);
+			
+			return list;
 
 		} catch (Exception e) {
 			// TODO: handle exception

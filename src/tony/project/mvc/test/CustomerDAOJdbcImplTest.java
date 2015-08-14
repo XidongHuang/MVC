@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import tony.project.mvc.dao.CriteriaCustomer;
 import tony.project.mvc.dao.CustomerDAO;
 import tony.project.mvc.dao.impl.CustomerDAOJdbcImpl;
 import tony.project.mvc.domain.Customer;
@@ -14,6 +15,12 @@ public class CustomerDAOJdbcImplTest {
 
 	private CustomerDAO customerDAO = new CustomerDAOJdbcImpl();
 		
+	@Test
+	public void testGetForListWithCriteriaCustomer(){
+		CriteriaCustomer cc = new CriteriaCustomer("y", null, null);
+		List<Customer> customers  = customerDAO.getForListWithCriteriaCustomer(cc);
+		
+	}
 	
 	@Test
 	public void testGetAll() {

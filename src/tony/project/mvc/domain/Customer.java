@@ -39,9 +39,9 @@ public class Customer {
 		this.phone = phone;
 	}
 	
-	public Customer(Integer id, String name, String address, String phone) {
+	public Customer(String name, String address, String phone) {
 		super();
-		this.id = id;
+
 		this.name = name;
 		this.address = address;
 		this.phone = phone;
