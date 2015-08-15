@@ -88,6 +88,7 @@ public class CustomerServlet extends HttpServlet {
 		String address = request.getParameter("address");
 		String phone = request.getParameter("phone");
 		
+		
 		//2. Check name is existed or not
 		//2.1 Invoke CustomerDAO's getCountWithName(String name) to check the name exists in database or not
 		long same = customerDAO.getCountWithName(name);
@@ -132,6 +133,71 @@ public class CustomerServlet extends HttpServlet {
 		System.out.println(request.getParameter("name"));
 		System.out.println("add");
 	}
+	
+	
+	private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		System.out.println("update test1");
+		//1. Gain parameters: id, name, address, phone
+		String id = request.getParameter("id");
+		System.out.println(id);
+		
+		String name = request.getParameter("name");
+		System.out.println(name);
+
+		String address = request.getParameter("address");
+		System.out.println(address);
+
+		String phone = request.getParameter("phone");
+		System.out.println(phone);
+
+		String oldName = request.getParameter("oldName");
+		System.out.println(oldName);
+		
+		//2. Check name exist or not
+		
+		//2.1 Compare name and oldName, if they are same then the name can be used
+		//2.1 If not the same, then invoke CustomerDAO's getCountWithName(String name)
+		//to make sure is the name really exist in database
+		if(!oldName.equalsIgnoreCase(name)){
+			System.out.println(name+" update4");
+			long count = customerDAO.getCountWithName(name);
+			if(count > 0){
+				System.out.println("update test3");
+				//2.2.1 In the updatecustomer.jsp page, there is a error message: user name exist already, please entry again!
+				//Put a message attribute in request: user name exist already, please entry again!
+				//show in page through request.getAttribute("message")
+				request.setAttribute("message", name+" already exisits, please entry again.");
+				
+				//2.2.2 newcustomer.jsp page can be review
+				//review through method: (address, phone show the new values, but name show oldName)
+
+				
+				//2.2 If the value it returns is larger than 0, then invoke updatecustomer.jsp page
+				// forward to newcustomer.jsp
+				request.getRequestDispatcher("updateCustomer.jsp").forward(request, response);
+				return;
+				
+			}
+		}
+				//3. If it doesn't have same name
+				//then Encapsulate parameters into a Customer instance
+				System.out.println("update test2");
+				Customer customer = new Customer(name, address, phone);
+				customer.setId(Integer.parseInt(id));
+				//4. invoke CustomerDAO's update(Customer customer) to update operation
+				customerDAO.update(customer);
+				//5. redirect to query.do page
+				// Using redirecting to avoid the problem of re-submit information
+				
+				response.sendRedirect("query.do");
+			
+		
+		System.out.println("update test5");
+		
+		
+	}
+	
+	
 
 	private void query(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -176,6 +242,35 @@ public class CustomerServlet extends HttpServlet {
 	}
 	
 	private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String forwardPath = "/error.jsp";
+		
+		//1. Gain request.id
+		String id = request.getParameter("id");
+		
+		
+		//2. Invoke CustomerDAO's customerDAO.get(id) to gain the customer instance that corresponds id
+		  
+		try {
+			Customer customer = customerDAO.get(Integer.parseInt(id));
+			
+			if(customer != null){
+				forwardPath = "updateCustomer.jsp";
+			
+				//3. Put customer into request (setAttribute()..)
+				request.setAttribute("customer", customer);
+				System.out.println("edit test! /n"+customer);
+				System.out.println(forwardPath);
+			}
+			
+		} catch (NumberFormatException e) {
+			
+			//4. forward to updatecustomer.jsp page:
+		}
+		
+		request.getRequestDispatcher(forwardPath).forward(request, response);
+		
+		
+		
 		System.out.println("edit");
 	}
 	

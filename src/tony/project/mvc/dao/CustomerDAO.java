@@ -22,6 +22,7 @@ public interface CustomerDAO {
 	
 	public void delete(Integer id);
 	
+	public void update(Customer customer);
 	/**
 	 * return numbers of record that corresponds with a customer name
 	 * 

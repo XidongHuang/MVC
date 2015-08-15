@@ -91,7 +91,7 @@
 			<td><%= customer.getAddress() %></td>
 			<td><%= customer.getPhone() %></td>
 			<td>
-				<a href="">Update</a>
+				<a href="edit.do?id=<%= customer.getId() %>">Update</a>
 				<a href="deleteCustomer.do?id=<%= customer.getId() %>" class="delete">Delete</a>
 			</td>
 		</tr>

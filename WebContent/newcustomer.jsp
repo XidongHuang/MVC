@@ -33,13 +33,15 @@
 			
 			<tr>
 				<td>Address:</td>
-				<td><input type="text" name="address"/></td>
+				<td><input type="text" name="address"
+				value="<%= request.getParameter("address")==null?"": request.getParameter("address")%>"/></td>
 		
 			</tr>
 			
 			<tr>
 				<td>Phone:</td>
-				<td><input type="text" name="phone"/></td>
+				<td><input type="text" name="phone"
+				value="<%= request.getParameter("phone")==null?"": request.getParameter("phone")%>"/></td>
 		
 			</tr>
 			
