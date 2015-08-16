@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<customer>
+	
+	<customer id ="1001">
+		<name>Tom</name>
+		<address>BeiJing</address>
+		<phone>1234535354</phone>
+	</customer>
+
+</customer>

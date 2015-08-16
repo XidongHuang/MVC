@@ -17,14 +17,16 @@ import org.apache.catalina.filters.AddDefaultCharsetFilter;
 
 import tony.project.mvc.dao.CriteriaCustomer;
 import tony.project.mvc.dao.CustomerDAO;
+import tony.project.mvc.dao.factory.CustomerDAOFactory;
 import tony.project.mvc.dao.impl.CustomerDAOJdbcImpl;
+import tony.project.mvc.dao.impl.CustomerDAOXMLImpl;
 import tony.project.mvc.domain.Customer;
 
 @WebServlet("*.do")
 public class CustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private CustomerDAO customerDAO = new CustomerDAOJdbcImpl();
+	private CustomerDAO customerDAO = CustomerDAOFactory.getInstance().getCustomerDAO();
 	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

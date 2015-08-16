@@ -9,4 +9,18 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+ <servlet>
+ 	<servlet-name>initServlet</servlet-name>
+ 	<servlet-class>tony.project.mvc.servlet.InitServlet</servlet-class>
+ 	<load-on-startup>1</load-on-startup>
+ </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>initServlet</servlet-name>
+  	<url-pattern>/initServlet</url-pattern>
+  
+  </servlet-mapping>
+  
 </web-app>
+
