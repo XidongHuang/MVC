@@ -1,11 +1,7 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="tony.project.mvc.domain.Customer"%>
 <%@page import="java.util.List"%>
+<%@page import="tony.project.mvc.domain.Customer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
-<%@ taglib prefix="tony" uri="http://tony.com/myTag/core" %> 
-    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -64,18 +60,15 @@
 	</form>
 	
 	<br><br>
-
 	
-	<%--
-	List<Customer> customers = (List<Customer>)request.getAttribute("customer");	
-	out.println("test1");
-	out.println(customers == null);
-	
-	if(customers  != null && customers.size()>0) {
-		out.println("test2");}
-	--%>
-	<c:if test="${!empty requestScope.customer }">
-	
+	<%
+		List<Customer> customers = (List<Customer>)request.getAttribute("customer");	
+		out.println("test1");
+		out.println(customers == null);
+		
+		if(customers  != null && customers.size()>0) {
+			out.println("test2");
+	%>
 	<hr>
 	<br><br>
 		<table border="1" cellpadding="10" cellspacing="0">
@@ -87,38 +80,34 @@
 				<th>Update\Delete</th>
 			</tr>
 	
+	<%
 	
+		for(Customer customer: customers){
 	
-	<c:forEach items="${requestScope.customer }" var="cust">
+	%>
 		<tr>
-			<td>${cust.id }</td>
-			<td>${cust.name }</td>
-			<td>${cust.address }</td>
-			<td>${cust.phone }</td>
-			<%
-				List<Customer> list = (List<Customer>)request.getAttribute("customer");
-				System.out.println(list.get(0).getPhone());
-			%>
+			<td><%= customer.getId() %></td>
+			<td><%= customer.getName() %></td>
+			<td><%= customer.getAddress() %></td>
+			<td><%= customer.getPhone() %></td>
 			<td>
-				<c:url value="/edit.do" var="editurl">
-				
-					<c:param name="id" value="${cust.id }"></c:param>
-				</c:url>
-				<a href="${editurl}">Update</a>
-				
-				<c:url value="/deleteCustomer.do" var="deleteurl">
-					<c:param name="id" value="${cust.id }"></c:param>
-				</c:url>
-				
-				<a href="${deleteurl }" class="delete">Delete</a>
+				<a href="edit.do?id=<%= customer.getId() %>">Update</a>
+				<a href="deleteCustomer.do?id=<%= customer.getId() %>" class="delete">Delete</a>
 			</td>
 		</tr>
+		<%
+		
+		}		%>
 	
-	</c:forEach>
 		</table>
+	<%		
+			
 	
 	
-	</c:if>
+	}
+	%>
+	
+	
 	
 	
 

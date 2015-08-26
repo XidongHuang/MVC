@@ -140,8 +140,15 @@ public class CustomerServlet extends HttpServlet {
 	private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		System.out.println("update test1");
 		//1. Gain parameters: id, name, address, phone
-		String id = request.getParameter("id");
+		String idO = request.getParameter("id");
+		String id = idO.replace(" ", "");
 		System.out.println(id);
+		try {
+			Integer.parseInt(id);
+			System.out.println("good");
+		} catch (Exception e) {
+			System.out.println("Bad");
+		}
 		
 		String name = request.getParameter("name");
 		System.out.println(name);
@@ -186,6 +193,7 @@ public class CustomerServlet extends HttpServlet {
 				System.out.println("update test2");
 				Customer customer = new Customer(name, address, phone);
 				customer.setId(Integer.parseInt(id));
+				System.out.println("update test3");
 				//4. invoke CustomerDAO's update(Customer customer) to update operation
 				customerDAO.update(customer);
 				//5. redirect to query.do page
@@ -202,6 +210,7 @@ public class CustomerServlet extends HttpServlet {
 	
 
 	private void query(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("query11");
 		
 		
 		//Gain request's values
@@ -214,7 +223,7 @@ public class CustomerServlet extends HttpServlet {
 		
 		//1. invoke CustomerDAO's getAll() method, to get the collection of Customer
 		List<Customer> customers = customerDAO.getForListWithCriteriaCustomer(cc);
-		
+		System.out.println(customers);
 		//2. put the collection of customer into request
 		request.setAttribute("customer", customers);
 		
@@ -224,7 +233,7 @@ public class CustomerServlet extends HttpServlet {
 	}
 
 	private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		System.out.println("deleteC");
 		String idStr = request.getParameter("id");
 		int id = 0;
 		System.out.println(idStr);
@@ -248,7 +257,7 @@ public class CustomerServlet extends HttpServlet {
 		
 		//1. Gain request.id
 		String id = request.getParameter("id");
-		
+		System.out.println(id);
 		
 		//2. Invoke CustomerDAO's customerDAO.get(id) to gain the customer instance that corresponds id
 		  
@@ -262,6 +271,7 @@ public class CustomerServlet extends HttpServlet {
 				request.setAttribute("customer", customer);
 				System.out.println("edit test! /n"+customer);
 				System.out.println(forwardPath);
+				System.out.println(customer.getId());
 			}
 			
 		} catch (NumberFormatException e) {
@@ -269,11 +279,11 @@ public class CustomerServlet extends HttpServlet {
 			//4. forward to updatecustomer.jsp page:
 		}
 		
+		System.out.println("edit");
 		request.getRequestDispatcher(forwardPath).forward(request, response);
 		
 		
 		
-		System.out.println("edit");
 	}
 	
 

@@ -15,37 +15,30 @@
 	<br><br>
 </c:if>
 
-	<c:set var="id" value="${customer != null ? customer.id:param.id }"></c:set>
-	<c:set var="oldName" value="${customer != null?customer.name:param.oldName }"></c:set>
-	<c:set var="name" value="${customer != null?customer.name:param.oldName }"></c:set>
-	<c:set var="address" value="${customer != null?customer.address:param.address }"></c:set>
-	<c:set var="phone" value="${customer != null?customer.phone:param.phone }"></c:set>
-	
+<form action="addCustomer.do" method="post">
 
 
-	<form action="update.do" method="post">
-	<input type="hidden" name="id" value=" ${id }"/>
-	<input type="hidden" name="oldName" value="${oldName }"/>
-	 
-		
 		<table>
-		
 			<tr>
 				<td>CustomerName:</td>
 				<td><input type="text" name="name"
-				 value = ${name }></td>
+				
+					value="${param.name }"/></td>
+		
 			</tr>
 			
 			<tr>
 				<td>Address:</td>
 				<td><input type="text" name="address"
-					value = "${address }"></td>
+				value="${param.address }"/></td>
+		
 			</tr>
 			
 			<tr>
 				<td>Phone:</td>
 				<td><input type="text" name="phone"
-					value = "${phone }"></td>
+				value="${param.phone }"/></td>
+		
 			</tr>
 			
 			<tr>
@@ -53,12 +46,11 @@
 				
 		
 			</tr>
+			
 		</table>
 	
 	
-	
 	</form>
-
 
 </body>
 </html>
